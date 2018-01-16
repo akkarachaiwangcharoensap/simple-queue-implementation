@@ -2,7 +2,7 @@
 A simple implementation of stack using javascript
 
 The demonstration can be viewed on Youtube
-[Aki Wiki | Queue Implementation](https://www.youtube.com/watch?v=yJtcgLBtVFg)
+[Aki Wiki | Queue Implementation](https://www.youtube.com/watch?v=2EG3JyEu1lI)
 
 [Demo](https://akkarachaiwangcharoensap.github.io/simple-queue-implementation/)
 
