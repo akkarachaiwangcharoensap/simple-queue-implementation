@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aki Wiki | Simple Queue Implementation</title>
+
+	<!-- Jquery -->
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="frameworks/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Queue</h1>
+		<div class="row" id="items"></div>
+	</div>
+	<button id="reset">Re render</button>
+
+	<style type="text/css">
+		#reset {
+			top: 12px;
+			right: 12px;
+			position: fixed;
+			color: white;
+			padding: 12px;
+			background: red;
+			border: 2px solid black;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var Queue = {
+				list: [],
+
+				/**
+				 * Push the item onto the back
+				 * of the list
+				 *
+				 * @param value
+				 * @return void
+				 */
+				enqueue: function (value) {
+					var index = this.list.length;
+
+					this.list[index] = value;
+				},
+
+				/**
+				 * Get the first item 
+				 * on the list
+				 * @return value
+				 */
+				dequeue: function () {
+					if (this.list.length == 0) {
+						return;
+					}
+
+					var item = this.list[0];
+
+					// Shift the array
+					for (var i = 0; i < this.list.length - 1; i++) {
+						this.list[i] = this.list[i + 1];
+					}
+
+					this.list.length = this.list.length - 1;
+
+					return item;
+				}
+			}
+
+			var Renderer = {
+				template: function (item) {
+					return '<div class="col-lg-12 col-md-12 col-sm-12 item">'
+								+ '<h1>'+ item +'</h1>'
+							+ '</div>'
+				},
+
+				render: function () {
+					var $items = $('#items');
+					$items.empty();
+
+					var self = this;
+
+					$.each(Queue.list, function (index, item) {
+						var template = self.template(item);
+						var $template = $(template);
+
+						$items.append($template);
+					});
+				}
+			}
+
+			$('#reset').click(function () {
+				Renderer.render();
+			});
+
+			var itemA = "Item A";
+			var itemB = "Item B";
+			var itemB = "Item C";
+
+			Queue.enqueue("Item A");
+			Queue.enqueue("Item B");
+			Queue.enqueue("Item C");	
+
+			Renderer.render();
+			console.log(Queue.list);
+
+			window.Queue = Queue;
+		});
+	</script>
+</body>
+</html>
